@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAM Vision Impact | Unity Springs Community Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #faf9f8;
+            color: #1e1e1e;
+        }
+        
+        /* Unique Gradient Background */
+        .bg-gradient {
+            background: linear-gradient(145deg, #1e3c2c 0%, #2a5a3a 50%, #1e3c2c 100%);
+        }
+        
+        /* Floating Navigation */
+        .nav-wrapper {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .floating-nav {
+            background: rgba(30, 60, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        
+        .nav-brand {
+            color: #ffd700;
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+        
+        /* Hero Section - Split Layout */
+        .hero-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 85vh;
+            align-items: center;
+        }
+        
+        .hero-left {
+            padding: 60px 40px 60px 80px;
+            background: linear-gradient(135deg, #faf9f8 0%, #f0ede8 100%);
+        }
+        
+        .hero-badge-new {
+            background: #1e3c2c;
+            color: #ffd700;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+        
+        .hero-left h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #1e3c2c;
+        }
+        
+        .hero-left h1 span {
+            color: #ffd700;
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-left p {
+            color: #4a4a4a;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 90%;
+        }
+        
+        .hero-right {
+            background: linear-gradient(145deg, #1e3c2c, #2a5a3a);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-stats {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 40px;
+            width: 100%;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,215,0,0.15);
+        }
+        
+        .stat-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffd700;
+        }
+        
+        .stat-label {
+            color: white;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        /* Section Headers - Unique */
+        .section-header-new {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            background: #1e3c2c;
+            color: #ffd700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        .section-header-new h2 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: #1e3c2c;
+        }
+        
+        .section-header-new h2 span {
+            color: #ffb347;
+        }
+        
+        /* Project Cards - New Style */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .project-card-new {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.35s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e8e6e2;
+        }
+        
+        .project-card-new:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: #ffd700;
+        }
+        
+        .project-icon {
+            font-size: 2.2rem;
+            margin-bottom: 18px;
+        }
+        
+        .project-card-new h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1e3c2c;
+        }
+        
+        .project-card-new p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #ffb347;
+            font-weight: 600;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Stats Banner - Unique */
+        .stats-banner {
+            background: linear-gradient(120deg, #1e3c2c, #2a5a3a);
+            border-radius: 40px;
+            padding: 50px 40px;
+            margin: 60px 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stats-banner-item h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffd700;
+        }
+        
+        .stats-banner-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Benefits List - New Style */
+        .benefits-grid-new {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .benefit-card {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            padding: 18px;
+            background: #faf9f8;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        
+        .benefit-card:hover {
+            background: #fff8e7;
+            transform: translateX(5px);
+        }
+        
+        .benefit-icon-new {
+            font-size: 1.8rem;
+        }
+        
+        .benefit-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #1e3c2c;
+        }
+        
+        .benefit-text p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e3c2c, #2a5a3a);
+            border-radius: 40px;
+            padding: 60px 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-section h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+        }
+        
+        .btn-new {
+            background: #ffd700;
+            color: #1e3c2c;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 40px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+            transition: 0.3s;
+        }
+        
+        .btn-new:hover {
+            background: #ffb347;
+            transform: scale(1.02);
+        }
+        
+        .btn-outline-new {
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+        }
+        
+        .btn-outline-new:hover {
+            background: #ffd700;
+            color: #1e3c2c;
+        }
+        
+        /* Footer */
+        .footer-new {
+            background: #1a2a20;
+            color: #aaa;
+            text-align: center;
+            padding: 50px 20px 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links-new {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+        
+        .footer-links-new a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        
+        .footer-links-new a:hover {
+            color: #ffd700;
+        }
+        
+        .candidate-tag {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #666;
+        }
+        
+        @media (max-width: 900px) {
+            .hero-split {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-left {
+                padding: 50px 30px;
+                text-align: center;
+            }
+            
+            .hero-left p {
+                max-width: 100%;
+            }
+            
+            .stats-banner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .benefits-grid-new {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-nav {
+                flex-direction: column;
+                gap: 12px;
+                padding: 15px 20px;
+                border-radius: 30px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Navigation -->
+    <div class="nav-wrapper">
+        <div class="floating-nav">
+            <div class="nav-brand">JAM VISION</div>
+            <div class="nav-links">
+                <a href="#home">HOME</a>
+                <a href="#projects">PROJECTS</a>
+                <a href="#impact">IMPACT</a>
+                <a href="#benefits">BENEFITS</a>
+                <a href="#register">JOIN US</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Section - Split Layout -->
+    <section id="home">
+        <div class="hero-split">
+            <div class="hero-left">
+                <div class="hero-badge-new">✦ COMMUNITY FIRST ✦</div>
+                <h1>Building Unity <span>Through Service</span></h1>
+                <p>JAM Vision Impact connects passionate volunteers with meaningful projects that transform Unity Springs. 20 active members, 7 ongoing initiatives, and countless smiles.</p>
+                <a href="#register" style="background: #1e3c2c; color: white; padding: 12px 32px; border-radius: 40px; text-decoration: none; display: inline-block; font-weight: 600;">Start Your Journey →</a>
+            </div>
+            <div class="hero-right">
+                <div class="hero-stats">
+                    <div class="stat-row">
+                        <div class="stat-label">Active Volunteers</div>
+                        <div class="stat-number">20</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-label">Community Projects</div>
+                        <div class="stat-number">7</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-label">Volunteer Participations</div>
+                        <div class="stat-number">25</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-label">Hours Contributed</div>
+                        <div class="stat-number">1,300+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Mission Statement -->
+    <div class="container">
+        <div class="section-header-new" style="text-align: center;">
+            <div class="section-tag">OUR WHY</div>
+            <h2>Making Unity Springs <span>Stronger Together</span></h2>
+            <p style="max-width: 700px; margin: 20px auto 0; color: #666;">We believe that small acts of service create ripple effects that transform entire communities. Every volunteer hour builds a better tomorrow.</p>
+        </div>
+    </div>
+    
+    <!-- Projects Section -->
+    <div class="container" id="projects">
+        <div class="section-header-new">
+            <div class="section-tag">WHAT WE DO</div>
+            <h2>Our <span>Community Projects</span></h2>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card-new">
+                <div class="project-icon">🧤</div>
+                <h4>Community Clean UP</h4>
+                <p>Collecting trash and beautifying neighborhoods across Unity Springs.</p>
+                <div class="project-meta">
+                    <span>📅 Flexible</span>
+                    <span>👥 5 volunteers</span>
+                </div>
+            </div>
+            <div class="project-card-new">
+                <div class="project-icon">🍲</div>
+                <h4>Food Donation</h4>
+                <p>Distributing meals and groceries to families in need.</p>
+                <div class="project-meta">
+                    <span>📅 2-4 hrs/week</span>
+                    <span>👥 4 volunteers</span>
+                </div>
+            </div>
+            <div class="project-card-new">
+                <div class="project-icon">🌱</div>
+                <h4>Community Garden</h4>
+                <p>Growing fresh produce for the community.</p>
+                <div class="project-meta">
+                    <span>📅 2-4 hrs/week</span>
+                    <span>👥 4 volunteers</span>
+                </div>
+            </div>
+            <div class="project-card-new">
+                <div class="project-icon">♻️</div>
+                <h4>Recycling Program</h4>
+                <p>Sorting and processing recyclable materials.</p>
+                <div class="project-meta">
+                    <span>📅 2-3 hrs/week</span>
+                    <span>👥 3 volunteers</span>
+                </div>
+            </div>
+            <div class="project-card-new">
+                <div class="project-icon">📚</div>
+                <h4>Book Donation</h4>
+                <p>Collecting and distributing books to local schools.</p>
+                <div class="project-meta">
+                    <span>📅 2-3 hrs/week</span>
+                    <span>👥 3 volunteers</span>
+                </div>
+            </div>
+            <div class="project-card-new">
+                <div class="project-icon">🐾</div>
+                <h4>Animal Rescue</h4>
+                <p>Caring for abandoned and injured animals.</p>
+                <div class="project-meta">
+                    <span>📅 2-4 hrs/week</span>
+                    <span>👥 3 volunteers</span>
+                </div>
+            </div>
+            <div class="project-card-new">
+                <div class="project-icon">💧</div>
+                <h4>Community Pool Clean Up</h4>
+                <p>Maintaining safe and clean swimming areas.</p>
+                <div class="project-meta">
+                    <span>📅 2-3 hrs/week</span>
+                    <span>👥 4 volunteers</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats Banner -->
+    <div class="container" id="impact">
+        <div class="stats-banner">
+            <div class="stats-banner-item">
+                <h3>20</h3>
+                <p>VOLUNTEERS</p>
+            </div>
+            <div class="stats-banner-item">
+                <h3>7</h3>
+                <p>PROJECTS</p>
+            </div>
+            <div class="stats-banner-item">
+                <h3>25</h3>
+                <p>PARTICIPATIONS</p>
+            </div>
+            <div class="stats-banner-item">
+                <h3>1,300+</h3>
+                <p>HOURS</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Benefits for Unity Springs -->
+    <div class="container" id="benefits">
+        <div class="section-header-new">
+            <div class="section-tag">WHY IT MATTERS</div>
+            <h2>Benefits for <span>Unity Springs</span></h2>
+        </div>
+        
+        <div class="benefits-grid-new">
+            <div class="benefit-card">
+                <div class="benefit-icon-new">🌆</div>
+                <div class="benefit-text">
+                    <h4>Stronger Neighborhoods</h4>
+                    <p>Volunteers build connections and foster belonging among residents.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-new">📈</div>
+                <div class="benefit-text">
+                    <h4>Economic Growth</h4>
+                    <p>Community projects increase property values and attract businesses.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-new">🎓</div>
+                <div class="benefit-text">
+                    <h4>Youth Development</h4>
+                    <p>Mentorship programs keep youth engaged and reduce dropout rates.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-new">🏥</div>
+                <div class="benefit-text">
+                    <h4>Healthier Population</h4>
+                    <p>Food distribution and cleanups improve community wellness.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-new">🌍</div>
+                <div class="benefit-text">
+                    <h4>Environmental Protection</h4>
+                    <p>Cleanup initiatives preserve Unity Springs' natural beauty.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-new">🤝</div>
+                <div class="benefit-text">
+                    <h4>Reduced Crime</h4>
+                    <p>Engaged communities see lower crime rates and stronger social bonds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="container" id="register">
+        <div class="cta-section">
+            <h3>Ready to Make a Difference?</h3>
+            <p>Join 20 dedicated volunteers who are already transforming Unity Springs through service.</p>
+            <div>
+                <a href="Volunteer Registration Form KOL.docx" class="btn-new">📝 Register Now</a>
+                <a href="#benefits" class="btn-new btn-outline-new">📖 Learn More</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer-new">
+        <div class="footer-logo">JAM VISION IMPACT</div>
+        <div class="footer-links-new">
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#impact">Impact</a>
+            <a href="#benefits">Benefits</a>
+            <a href="#register">Join Us</a>
+        </div>
+        <p>📍 123 Community Way, Unity Springs, Jamaica</p>
+        <p>📞 (876) 555-0123 | ✉️ info@jamvision.org</p>
+        <div class="candidate-tag">Candidate: 1000671671</div>
+        <p style="margin-top: 25px; font-size: 0.7rem;">&copy; 2026 JAM Vision Impact. Building Unity Through Service.</p>
+    </footer>
+</body>
+</html>
